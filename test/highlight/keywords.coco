@@ -1,30 +1,29 @@
 if foo():
-# <- keyword
+# <- keyword.control.conditional
     pass
-    # <- keyword
+    # <- keyword.control
 elif bar():
-# <- keyword
+# <- keyword.control.conditional
     pass
 else:
-# <- keyword
+# <- keyword.control.conditional
     foo
 
 return
-# ^ keyword
+# ^ keyword.control.return
 raise e
-# ^ keyword
+# ^ keyword.control.except
 
 for i in foo():
-# <- keyword
+# <- keyword.control.repeat
 #   ^ variable
-#     ^ operator
-#        ^ function
+#     ^ keyword.operator
     continue
-    # <- keyword
+    # <- keyword.control.repeat
     break
-    # <- keyword
+    # <- keyword.control.repeat
 
 a and b or c
-# ^ operator
+# ^ keyword.operator
 #     ^ variable
-#       ^ operator
+#       ^ keyword.operator

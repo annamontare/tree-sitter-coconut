@@ -1,29 +1,29 @@
 match command.split():
-# ^ keyword
+# ^ keyword.control.conditional
     case ["quit"]:
-    # ^ keyword
+    # ^ keyword.control.conditional
         print("Goodbye!")
         quit_game()
     case ["look"]:
-    # ^ keyword
+    # ^ keyword.control.conditional
         current_room.describe()
     case ["get", obj]:
-    # ^ keyword
+    # ^ keyword.control.conditional
         character.get(obj, current_room)
     case ["go", direction]:
-    # ^ keyword
+    # ^ keyword.control.conditional
         current_room = current_room.neighbor(direction)
     # The rest of your commands go here
 
 match command.split():
-# ^ keyword
+# ^ keyword.control.conditional
     case ["drop", *objects]:
-    # ^ keyword
+    # ^ keyword.control.conditional
         for obj in objects:
             character.drop(obj, current_room)
 
 match command.split():
-# ^ keyword
+# ^ keyword.control.conditional
     case ["quit"]: ... # Code omitted for brevity
     case ["go", direction]: pass
     case ["drop", *objects]: pass
@@ -31,12 +31,12 @@ match command.split():
         print(f"Sorry, I couldn't understand {command!r}")
 
 match command.split():
-# ^ keyword
+# ^ keyword.control.conditional
     case ["north"] | ["go", "north"]:
-    # ^ keyword
+    # ^ keyword.control.conditional
         current_room = current_room.neighbor("north")
     case ["get", obj] | ["pick", "up", obj] | ["pick", obj, "up"]:
-    # ^ keyword
+    # ^ keyword.control.conditional
         pass
 
 match = 2
