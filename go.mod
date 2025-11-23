@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-coconut
+module github.com/annamontare/tree-sitter-coconut
 
 go 1.23
 

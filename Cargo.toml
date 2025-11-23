@@ -2,12 +2,10 @@
 name = "tree-sitter-coconut"
 description = "Coconut grammar for tree-sitter"
 version = "0.23.2"
-authors = [
-]
 license = "MIT"
 keywords = ["incremental", "parsing", "tree-sitter", "python", "coconut"]
 categories = ["parsing", "text-editors"]
-repository = "https://github.com/aidanmontare-fed/tree-sitter-coconut"
+repository = "https://github.com/annamontare/tree-sitter-coconut"
 edition = "2021"
 autoexamples = false
 

@@ -2,11 +2,10 @@
   "name": "tree-sitter-coconut",
   "version": "0.23.2",
   "description": "Coconut grammar for tree-sitter",
-  "repository": "github:aidanmontare-fed/tree-sitter-coconut",
+  "repository": "github:annamontare/tree-sitter-coconut",
   "license": "MIT",
-  "author": "Max Brunsfeld <maxbrunsfeld@gmail.com>",
+  "author": "Anna Montare <aam141@case.edu>",
   "contributors": [
-    "Amaan Qureshi <amaanq12@gmail.com>"
   ],
   "main": "bindings/node",
   "types": "bindings/node",

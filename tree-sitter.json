@@ -19,7 +19,7 @@
     "license": "MIT",
     "description": "Coconut grammar for tree-sitter",
     "links": {
-      "repository": "git+https://github.com/aidanmontare-fed/tree-sitter-coconut.git"
+      "repository": "git+https://github.com/annamontare/tree-sitter-coconut.git"
     }
   },
   "bindings": {

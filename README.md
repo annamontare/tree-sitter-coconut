@@ -74,7 +74,7 @@ indent = { tab-width = 4, unit = "    " }
 
 [[grammar]]
 name = "coconut"
-source = { git = "https://github.com/rtbs-dev/tree-sitter-coconut", rev="master" }
+source = { git = "https://github.com/annamontare/tree-sitter-coconut", rev="master" }
 ```
 
 Now you need to fetch and build the C headers for the parser. 

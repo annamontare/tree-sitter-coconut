@@ -1,6 +1,6 @@
 /**
  * @file Coconut grammar for tree-sitter
- * @author 
+ * @author Anna Montare
  * @license MIT
  * @see {@link https://coconut.readthedocs.io/en/latest/DOCS.html|Coconut Documentation}
  * @see {@link https://docs.python.org/2/reference/grammar.html|Python 2 grammar}
