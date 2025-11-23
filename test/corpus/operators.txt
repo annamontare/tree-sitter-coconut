@@ -1860,6 +1860,142 @@ map(x => x*2, range(10**100))$[-1] |> print
       (identifier))))
 
 ===
+Iterator chaining
+===
+
+a :: b
+(x,) :: (y,z)
+
+---
+
+(module
+  (expression_statement
+    (iterator_chain
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (iterator_chain
+      (tuple
+        (identifier))
+      (tuple
+        (identifier)
+        (identifier)))))
+
+===
+Longer iterator chains
+===
+
+a :: b :: c
+
+---
+
+(module
+  (expression_statement
+    (iterator_chain
+      (identifier)
+      (identifier)
+      (identifier))))
+
+===
+Iterator chaining has a precedence in-between bitwise or and infix calls
+===
+
+a :: b | c == a :: (b | c)
+a `f` b :: c == a `f` (b :: c)
+
+---
+
+(module
+  (expression_statement
+    (comparison_operator
+      (iterator_chain
+        (identifier)
+        (binary_operator
+          (identifier)
+          (identifier)))
+      (iterator_chain
+        (identifier)
+        (parenthesized_expression
+          (binary_operator
+            (identifier)
+            (identifier))))))
+  (expression_statement
+    (comparison_operator
+      (infix_application
+        (identifier)
+        (iterator_chain
+          (identifier)
+          (identifier))))
+      (infix_application
+        (identifier)
+        (parenthesized_expression
+          (iterator_chain
+            (identifier)
+            (identifier))))))
+
+===
+In-place iterator chaining
+===
+
+a ::= b
+
+---
+
+(module
+  (expression_statement
+    (augmented_assignment
+      (identifier)
+      (identifier))))
+
+===
+Iterator chaining (docs)
+===
+
+def N(n=0) = (n,) :: N(n+1)  # no infinite loop because :: is lazy
+
+(range(-10, 0) :: N())$[5:15] |> list |> print
+
+---
+
+(module
+  (assignment_function_definition
+    (identifier)
+    (parameters
+      (default_parameter
+        (identifier)
+        (integer)))
+    (iterator_chain
+      (tuple
+        (identifier))
+      (call
+        (identifier)
+        (argument_list
+          (binary_operator
+            (identifier)
+            (integer)))))
+    (comment))
+  (expression_statement
+    (pipe
+      (pipe
+        (iterator_slice
+          (parenthesized_expression
+            (iterator_chain
+              (call
+                (identifier)
+                (argument_list
+                  (unary_operator
+                    (integer))
+                  (integer)))
+              (call
+                (identifier)
+                (argument_list))))
+          (slice
+            (integer)
+            (integer)))
+        (identifier))
+      (identifier))))
+
+===
 infix functions
 :skip
 # waiting on implementation

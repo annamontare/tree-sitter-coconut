@@ -33,6 +33,10 @@ Below are Coconut features and their implementation status in this grammar.
     - [x] implementation
     - [x] tests
     - [x] highlights
+  - [ ] iterator chaining
+    - [ ] implementation
+    - [x] tests
+    - [ ] highlights
 - Keywords
   - [x] where statements
 - Expressions

@@ -29,15 +29,16 @@ const PREC = {
   pipe: 14,
   composition_pipe: 15,
   composition: 16,
-  bitwise_or: 17,
-  bitwise_and: 18,
-  xor: 19,
-  shift: 20,
-  plus: 21,
-  times: 22,
-  unary: 23,
-  power: 24,
-  call: 25,
+  iterator_chain: 17,
+  bitwise_or: 18,
+  bitwise_and: 19,
+  xor: 20,
+  shift: 21,
+  plus: 22,
+  times: 23,
+  unary: 24,
+  power: 25,
+  call: 26,
 };
 
 const SEMICOLON = ';';
@@ -825,6 +826,7 @@ module.exports = grammar({
       $.attribute,
       $.subscript,
       $.iterator_slice,
+      $.iterator_chain,
       $.call,
       $.partial,
       $.pipe,
@@ -984,6 +986,7 @@ module.exports = grammar({
         '<*?..=',
         '..?**>=',
         '<**?..=',
+        '::=',
       )),
       field('right', $._right_hand_side),
     ),
@@ -1054,6 +1057,15 @@ module.exports = grammar({
       commaSep1(field('subscript', choice($.expression, $.slice))),
       optional(','),
       ']',
+    )),
+
+    // TODO this doesn't seem to grab longer iterator chains
+    iterator_chain: $ => prec(PREC.iterator_chain, seq(
+      $.primary_expression,
+      repeat1(seq(
+        '::',
+        $.primary_expression,
+      )),
     )),
 
     ellipsis: _ => '...',
