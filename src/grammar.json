@@ -3750,6 +3750,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "iterator_chain"
+        },
+        {
+          "type": "SYMBOL",
           "name": "call"
         },
         {
@@ -3916,7 +3920,7 @@
       "members": [
         {
           "type": "PREC_LEFT",
-          "value": 21,
+          "value": 22,
           "content": {
             "type": "SEQ",
             "members": [
@@ -3949,7 +3953,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 21,
+          "value": 22,
           "content": {
             "type": "SEQ",
             "members": [
@@ -3982,7 +3986,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 22,
+          "value": 23,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4015,7 +4019,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 22,
+          "value": 23,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4048,7 +4052,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 22,
+          "value": 23,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4081,7 +4085,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 22,
+          "value": 23,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4114,7 +4118,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 22,
+          "value": 23,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4147,7 +4151,7 @@
         },
         {
           "type": "PREC_RIGHT",
-          "value": 24,
+          "value": 25,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4180,7 +4184,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 17,
+          "value": 18,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4213,7 +4217,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 18,
+          "value": 19,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4246,7 +4250,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 19,
+          "value": 20,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4279,7 +4283,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 20,
+          "value": 21,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4312,7 +4316,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 20,
+          "value": 21,
           "content": {
             "type": "SEQ",
             "members": [
@@ -4347,7 +4351,7 @@
     },
     "unary_operator": {
       "type": "PREC",
-      "value": 23,
+      "value": 24,
       "content": {
         "type": "SEQ",
         "members": [
@@ -4889,6 +4893,10 @@
               {
                 "type": "STRING",
                 "value": "<**?..="
+              },
+              {
+                "type": "STRING",
+                "value": "::="
               }
             ]
           }
@@ -5041,7 +5049,7 @@
     },
     "attribute": {
       "type": "PREC",
-      "value": 25,
+      "value": 26,
       "content": {
         "type": "SEQ",
         "members": [
@@ -5070,7 +5078,7 @@
     },
     "subscript": {
       "type": "PREC",
-      "value": 25,
+      "value": 26,
       "content": {
         "type": "SEQ",
         "members": [
@@ -5220,7 +5228,7 @@
     },
     "iterator_slice": {
       "type": "PREC",
-      "value": 25,
+      "value": 26,
       "content": {
         "type": "SEQ",
         "members": [
@@ -5306,13 +5314,42 @@
         ]
       }
     },
+    "iterator_chain": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "primary_expression"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "::"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "primary_expression"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
     "ellipsis": {
       "type": "STRING",
       "value": "..."
     },
     "call": {
       "type": "PREC",
-      "value": 25,
+      "value": 26,
       "content": {
         "type": "SEQ",
         "members": [
@@ -5520,36 +5557,49 @@
       ]
     },
     "composition": {
-      "type": "PREC",
+      "type": "PREC_RIGHT",
       "value": 16,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "primary_expression"
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "primary_expression"
+            }
           },
           {
-            "type": "REPEAT1",
+            "type": "STRING",
+            "value": ".."
+          },
+          {
+            "type": "FIELD",
+            "name": "right",
             "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": ".."
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "primary_expression"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "primary_expression"
             }
           }
         ]
       }
     },
     "composition_pipe": {
-      "type": "PREC",
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_forward_composition_pipe"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_backward_composition_pipe"
+        }
+      ]
+    },
+    "_forward_composition_pipe": {
+      "type": "PREC_LEFT",
       "value": 15,
       "content": {
         "type": "SEQ",
@@ -5563,33 +5613,58 @@
             }
           },
           {
-            "type": "REPEAT1",
+            "type": "FIELD",
+            "name": "operator",
             "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "operator",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_composition_pipe_operator"
-                  }
-                },
-                {
-                  "type": "FIELD",
-                  "name": "right",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "primary_expression"
-                  }
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "_forward_composition_pipe_operator"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "right",
+            "content": {
+              "type": "SYMBOL",
+              "name": "primary_expression"
             }
           }
         ]
       }
     },
-    "_composition_pipe_operator": {
+    "_backward_composition_pipe": {
+      "type": "PREC_RIGHT",
+      "value": 15,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "primary_expression"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_backward_composition_pipe_operator"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "right",
+            "content": {
+              "type": "SYMBOL",
+              "name": "primary_expression"
+            }
+          }
+        ]
+      }
+    },
+    "_forward_composition_pipe_operator": {
       "type": "CHOICE",
       "members": [
         {
@@ -5598,15 +5673,7 @@
         },
         {
           "type": "STRING",
-          "value": "<.."
-        },
-        {
-          "type": "STRING",
           "value": "..*>"
-        },
-        {
-          "type": "STRING",
-          "value": "<*.."
         },
         {
           "type": "STRING",
@@ -5614,15 +5681,7 @@
         },
         {
           "type": "STRING",
-          "value": "<**.."
-        },
-        {
-          "type": "STRING",
           "value": "..?>"
-        },
-        {
-          "type": "STRING",
-          "value": "<?.."
         },
         {
           "type": "STRING",
@@ -5630,11 +5689,32 @@
         },
         {
           "type": "STRING",
-          "value": "<*?.."
+          "value": "..?**>"
+        }
+      ]
+    },
+    "_backward_composition_pipe_operator": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<.."
         },
         {
           "type": "STRING",
-          "value": "..?**>"
+          "value": "<*.."
+        },
+        {
+          "type": "STRING",
+          "value": "<**.."
+        },
+        {
+          "type": "STRING",
+          "value": "<?.."
+        },
+        {
+          "type": "STRING",
+          "value": "<*?.."
         },
         {
           "type": "STRING",
@@ -5644,7 +5724,7 @@
     },
     "partial": {
       "type": "PREC",
-      "value": 25,
+      "value": 26,
       "content": {
         "type": "SEQ",
         "members": [
@@ -7086,7 +7166,7 @@
     },
     "await": {
       "type": "PREC",
-      "value": 23,
+      "value": 24,
       "content": {
         "type": "SEQ",
         "members": [
@@ -7300,5 +7380,6 @@
     "primary_expression",
     "pattern",
     "parameter"
-  ]
+  ],
+  "reserved": {}
 }

@@ -298,6 +298,10 @@
         "named": true
       },
       {
+        "type": "iterator_chain",
+        "named": true
+      },
+      {
         "type": "iterator_slice",
         "named": true
       },
@@ -701,6 +705,10 @@
           },
           {
             "type": "/=",
+            "named": false
+          },
+          {
+            "type": "::=",
             "named": false
           },
           {
@@ -1326,16 +1334,27 @@
   {
     "type": "composition",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "primary_expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "primary_expression",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "primary_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1353,7 +1372,7 @@
         ]
       },
       "operator": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -1407,7 +1426,7 @@
         ]
       },
       "right": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -2406,6 +2425,21 @@
     "type": "is not",
     "named": false,
     "fields": {}
+  },
+  {
+    "type": "iterator_chain",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "primary_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "iterator_slice",
@@ -4067,6 +4101,14 @@
     "named": false
   },
   {
+    "type": "::",
+    "named": false
+  },
+  {
+    "type": "::=",
+    "named": false
+  },
+  {
     "type": ":=",
     "named": false
   },
@@ -4288,7 +4330,8 @@
   },
   {
     "type": "comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "continue",
@@ -4392,7 +4435,8 @@
   },
   {
     "type": "line_continuation",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "match",
