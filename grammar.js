@@ -1113,36 +1113,44 @@ module.exports = grammar({
       /:=\s*\.\s*\)/,
     ),
 
-    composition: $ => prec(PREC.composition, seq(
-      $.primary_expression,
-      repeat1(
-        seq(
-          '..',
-          $.primary_expression,
-        )),
+    composition: $ => prec.right(PREC.composition, seq(
+      field('left', $.primary_expression),
+      '..',
+      field('right', $.primary_expression)
     )),
 
-    composition_pipe: $ => prec(PREC.composition_pipe, seq( // TODO shouldn't be left, at least not all the time
+    composition_pipe: $ => choice(
+      $._forward_composition_pipe,
+      $._backward_composition_pipe,
+    ),
+
+    _forward_composition_pipe: $ => prec.left(PREC.composition_pipe, seq( // TODO shouldn't be left, at least not all the time
       field('left', $.primary_expression),
-      repeat1(
-        seq(
-          field('operator', $._composition_pipe_operator),
-          field('right', $.primary_expression),
-        )),
+      field('operator', $._forward_composition_pipe_operator),
+      field('right', $.primary_expression),
     )),
     
-    _composition_pipe_operator: $ => choice(
+    _backward_composition_pipe: $ => prec.right(PREC.composition_pipe, seq( // TODO shouldn't be left, at least not all the time
+      field('left', $.primary_expression),
+      field('operator', $._backward_composition_pipe_operator),
+      field('right', $.primary_expression),
+    )),
+
+    _forward_composition_pipe_operator: $ => choice(
       '..>',
-      '<..',
       '..*>',
-      '<*..',
       '..**>',
-      '<**..',
       '..?>',
-      '<?..',
       '..?*>',
-      '<*?..',
       '..?**>',
+    ),
+
+    _backward_composition_pipe_operator: $ => choice(
+      '<..',
+      '<*..',
+      '<**..',
+      '<?..',
+      '<*?..',
       '<**?..',
     ),
 

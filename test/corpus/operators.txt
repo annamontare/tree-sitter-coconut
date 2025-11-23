@@ -1285,9 +1285,22 @@ f <**?.. g
 ===
 Forwards and backwards function composition pipes cannot be used together in the same expression (unlike normal pipes).
 
-:skip
+:error
 # TODO must be implemented
 ===
+
+f ..> g <.. h
+
+---
+
+===
+Forwards and backwards function composition pipes cannot be used together 2
+
+:error
+# TODO must be implemented
+===
+
+f ..> g .. h
 
 ---
 
@@ -1298,16 +1311,62 @@ Forwards and backwards function composition pipes have precedence in-between Non
 # TODO must be implemented
 ===
 
+|?> |> 
+
 ---
 
 ===
 The .. operator has lower precedence than :: but higher precedence than infix functions while the ..> pipe operators have a precedence directly higher than normal pipes.
-
-:skip
 # TODO must be implemented
 ===
 
+f .. g :: h == f .. (g :: h)
+f .. g `something` h == (f .. g) `something` h
+
+f |> g ..> h == f |> (g ..> h)
+
 ---
+
+(module
+  (expression_statement
+    (comparison_operator
+      (composition
+        (identifier)
+        (iterator_chain
+          (identifier)
+          (identifier)))
+      (composition
+        (identifier)
+        (parenthesized_expression
+          (iterator_chain
+            (identifier)
+            (identifier))))))
+  (expression_statement
+    (comparision_operator
+      (infix_application
+        (composition
+          (identifier)
+          (identifier))
+        (identifier))
+      (infix_application
+        (parenthesized_expression
+          (composition
+            (identifier)
+            (identifier)))
+        (identifier))))
+  (expression_statement
+    (comparison_operator
+      (pipe
+        (identifier)
+        (composition_pipe
+          (identifier)
+          (identifier)))
+      (pipe
+        (identifier)
+        (parenthesized_expression
+          (composition_pipe
+            (identifier)
+            (identifier)))))))
 
 ===
 Function composition (docs)
@@ -1334,8 +1393,6 @@ f_into_g = f ..> g
 
 ===
 Longer function compositions
-
-:skip
 # TODO function composition operators not fully implemented
 ===
 
@@ -1345,6 +1402,9 @@ a .. b .. c .. d .. e
 f ..> g ..> h
 a ..> b ..> c ..> d
 a ..> b ..> c ..> d ..> e
+f <.. g <.. h
+a <.. b <.. c <.. d
+a <.. b <.. c <.. d <.. e
 
 ---
 
@@ -1355,16 +1415,97 @@ a ..> b ..> c ..> d ..> e
       (identifier)
       (identifier)))
   (expression_statement
+    (composition
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (composition
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)))
+  (expression_statement
     (composition_pipe
       (identifier)
       (identifier)
+      (identifier)))
+  (expression_statement
+    (composition_pipe
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (composition_pipe
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (composition_pipe
+      (identifier)
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (composition_pipe
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (composition_pipe
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier))))
+
+===
+Arguments of function composition
+===
+
+f .. g$(12)
+f ..> (g * h)
+f <.. foo.bar
+funcs[12] ..*> f
+
+---
+
+(module
+  (expression_statement
+    (composition
+      (identifier)
+      (partial
+        (identifier)
+        (partial_argument_list
+          (integer)))))
+  (expression_statement
+    (composition_pipe
+      (identifier)
+      (parenthesized_expression
+        (binary_operator
+          (identifier)
+          (identifier)))))
+  (expression_statement
+    (composition_pipe
+      (identifier)
+      (attribute
+        (identifier)
+        (identifier))))
+  (expression_statement
+    (composition_pipe
+      (subscript
+        (identifier)
+        (integer))
       (identifier))))
 
 
 ===
 Composition within other constructs
-
-:skip
 # TODO function composition operators not fully implemented
 ===
 
@@ -1453,7 +1594,7 @@ def h(x):
 )
 
 ===
-Composition Pipes within other constructs
+Composition pipes within other constructs
 
 :skip
 # TODO function composition operators not fully implemented
@@ -1463,27 +1604,42 @@ Composition Pipes within other constructs
 
 ===
 Mixing composition pipes
-
-:skip
-# TODO function composition operators not fully implemented
 ===
+
+f ..> g ..*> h ..**> i ..?> j ..?*> k ..?**> l
+f <.. g <*.. h <**.. i <?.. j <*?.. k <**?.. l
+f <.. g .. h
 
 ---
 
-===
-Cannot mix forward and reverse composition pipes
-:error
-
-:skip
-# TODO function composition operators not fully implemented
-===
-
----
+(module
+      (expression_statement
+        (composition_pipe
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)))
+      (expression_statement
+        (composition_pipe
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)))
+      (expression_statement
+        (composition_pipe
+          (identifier)
+          (composition
+            (identifier)
+            (identifier)))))
 
 ===
 Compositions and lambdas
-
-:skip
 # TODO function composition operators not fully implemented
 ===
 
