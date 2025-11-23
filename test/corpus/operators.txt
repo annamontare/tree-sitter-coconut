@@ -1279,8 +1279,7 @@ f <**?.. g
   (expression_statement
     (composition_pipe
       (identifier)
-      (identifier)))
-  )
+      (identifier))))
 
 ===
 Forwards and backwards function composition pipes cannot be used together in the same expression (unlike normal pipes).
