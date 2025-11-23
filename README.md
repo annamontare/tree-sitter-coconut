@@ -5,6 +5,8 @@ A [tree-sitter][] grammar for [Coconut][].
 [tree-sitter]: https://github.com/tree-sitter/tree-sitter
 [Coconut]: https://coconut-lang.org/
 
+Based on the [tree-sitter grammar for Python](https://github.com/tree-sitter/tree-sitter-python).
+
 This is very much a work in progress.
 
 
