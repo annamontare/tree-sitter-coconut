@@ -626,6 +626,20 @@
             "named": true
           }
         ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          },
+          {
+            "type": "?.",
+            "named": false
+          }
+        ]
       }
     }
   },
@@ -772,6 +786,10 @@
             "named": false
           },
           {
+            "type": "??=",
+            "named": false
+          },
+          {
             "type": "@=",
             "named": false
           },
@@ -912,6 +930,10 @@
           },
           {
             "type": ">>",
+            "named": false
+          },
+          {
+            "type": "??",
             "named": false
           },
           {
@@ -1569,6 +1591,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "deferred_argument",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "delete_statement",
@@ -3059,6 +3086,20 @@
             "named": true
           }
         ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "$",
+            "named": false
+          },
+          {
+            "type": "?$",
+            "named": false
+          }
+        ]
       }
     }
   },
@@ -3476,6 +3517,20 @@
     "type": "subscript",
     "named": true,
     "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "?[",
+            "named": false
+          },
+          {
+            "type": "[",
+            "named": false
+          }
+        ]
+      },
       "subscript": {
         "multiple": true,
         "required": true,
@@ -4301,6 +4356,30 @@
     "named": false
   },
   {
+    "type": "?",
+    "named": false
+  },
+  {
+    "type": "?$",
+    "named": false
+  },
+  {
+    "type": "?.",
+    "named": false
+  },
+  {
+    "type": "??",
+    "named": false
+  },
+  {
+    "type": "??=",
+    "named": false
+  },
+  {
+    "type": "?[",
+    "named": false
+  },
+  {
     "type": "@",
     "named": false
   },
@@ -4384,10 +4463,6 @@
   {
     "type": "def",
     "named": false
-  },
-  {
-    "type": "deferred_argument",
-    "named": true
   },
   {
     "type": "del",

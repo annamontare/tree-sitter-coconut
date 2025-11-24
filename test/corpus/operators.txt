@@ -2211,3 +2211,343 @@ def a `mod` b = a % b
         (integer)))
     right: (identifier)))
 
+===
+None-coalescing operator
+===
+
+a ?? b
+None ?? never_evaluated()
+
+---
+
+(module
+  (expression_statement
+    (binary_operator
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (binary_operator
+      (none)
+      (call
+        (identifier)
+        (argument_list)))))
+
+===
+Coconut implements all of the None-aware operators proposed in PEP 505. (A few examples from that PEP)
+===
+
+(a ?? 2 ** b ?? 3) != a ?? (2 ** (b ?? 3))  # note that this comparision is equal in the PEP because the precedences are different than in Coconut
+await a?.b(c).d?[e]
+(a?.b ?? c).d?.e
+
+---
+
+(module
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (binary_operator
+          (binary_operator
+            (identifier)
+            (binary_operator
+              (integer)
+              (identifier)))
+          (integer)))
+      (binary_operator
+        (identifier)
+        (parenthesized_expression
+          (binary_operator
+            (integer)
+            (parenthesized_expression
+              (binary_operator
+                (identifier)
+                (integer))))))))
+  (comment)
+  (expression_statement
+    (await
+      (subscript
+        (attribute
+          (call
+            (attribute
+              (identifier)
+              (identifier))
+            (argument_list
+              (identifier)))
+          (identifier))
+        (identifier))))
+  (expression_statement
+    (attribute
+      (attribute
+        (parenthesized_expression
+          (binary_operator
+            (attribute
+              (identifier)
+              (identifier))
+            (identifier)))
+        (identifier))
+      (identifier))))
+
+===
+Failing example from PEP 505
+:error
+:skip
+# maybe it doesn't matter that this parses
+===
+
+a?.b = 1
+
+---
+
+===
+Failing example from PEP 505 2
+:error
+:skip
+# maybe it doesn't matter that this parses
+===
+
+a?[b] = 1
+
+---
+
+===
+The None-coalescing operator has a precedence in-between infix function calls and composition pipes.
+===
+
+a ?? b `f` c == a ?? (b `f` c)
+f ..> g ?? h == f ..> (g ?? h)
+
+---
+
+(module
+  (expression_statement
+    (comparison_operator
+      (binary_operator
+        (identifier)
+        (infix_call
+          (identifier)
+          (identifier)
+          (identifier)))
+      (binary_operator
+        (identifier)
+        (parenthesized_expression
+          (infix_call
+            (identifier)
+            (identifier)
+            (identifier))))))
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (binary_operator
+          (identifier)
+          (identifier)))
+      (composition_pipe
+        (identifier)
+        (parenthesized_expression
+          (binary_operator
+            (identifier)
+            (identifier)))))))
+
+===
+The None-coalescing operator is left-associative.
+===
+
+a ?? b ?? c == (a ?? b) ?? c
+
+---
+
+(module
+  (expression_statement
+    (comparison_operator
+      (binary_operator
+        (binary_operator
+          (identifier)
+          (identifier))
+        (identifier))
+      (binary_operator
+        (parenthesized_expression
+          (binary_operator
+            (identifier)
+            (identifier)))
+        (identifier)))))
+
+===
+None-coalescing operator (docs)
+===
+
+could_be_none() ?? calculate_default_value()
+
+---
+
+(module
+  (expression_statement
+    (binary_operator
+      (call
+        (identifier)
+        (argument_list))
+      (call
+        (identifier)
+        (argument_list)))))
+
+===
+Coalescing assignment operator (docs)
+===
+
+foo = 1
+bar = None
+foo ??= 10  # foo is still 1
+bar ??= 10  # bar is now 10
+
+baz = 0
+baz ??= expensive_task()  # right hand side isn't evaluated
+
+---
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (integer)))
+  (expression_statement
+    (assignment
+      (identifier)
+      (none)))
+  (expression_statement
+    (augmented_assignment
+      (identifier)
+      (integer)))
+  (comment)
+  (expression_statement
+    (augmented_assignment
+      (identifier)
+      (integer)))
+  (comment)
+  (expression_statement
+    (assignment
+      (identifier)
+      (integer)))
+  (expression_statement
+    (augmented_assignment
+      (identifier)
+      (call
+        (identifier)
+        (argument_list))))
+  (comment))
+
+===
+When using a None-aware operator for member access, either for a method or an attribute, the syntax is obj?.method() or obj?.attr respectively. obj?.attr is equivalent to obj.attr if obj is not None else obj. 
+===
+
+obj?.method()
+obj?.attr == (obj.attr if obj is not None else obj)
+
+---
+
+(module
+  (expression_statement
+    (call
+      (attribute
+        (identifier)
+        (identifier))
+      (argument_list)))
+  (expression_statement
+    (comparison_operator
+      (attribute
+        (identifier)
+        (identifier))
+      (parenthesized_expression
+        (conditional_expression
+          (attribute
+            (identifier)
+            (identifier))
+          (comparison_operator
+            (identifier)
+            (none))
+          (identifier))))))
+
+===
+The None-aware indexing operator is used identically to normal indexing, using ?[] instead of []. seq?[index] is equivalent to the expression seq[index] if seq is not None else seq.
+===
+
+l?[12]
+seq?[index] == (seq[index] if seq is not None else seq)
+
+---
+
+(module
+  (expression_statement
+    (subscript
+      (identifier)
+      (integer)))
+  (expression_statement
+    (comparison_operator
+      (subscript
+        (identifier)
+        (identifier))
+      (parenthesized_expression
+        (conditional_expression
+          (subscript
+            (identifier)
+            (identifier))
+          (comparison_operator
+            (identifier)
+            (none))
+          (identifier))))))
+
+===
+Other None-aware operators (docs)
+===
+
+could_be_none?.attr     # attribute access
+could_be_none?(arg)     # function calling
+could_be_none?.method() # method calling
+could_be_none?$(arg)    # partial application
+could_be_none()?[0]     # indexing
+could_be_none()?.attr[index].method()
+
+---
+
+(module
+  (expression_statement
+    (attribute
+      (identifier)
+      (identifier)))
+  (comment)
+  (expression_statement
+    (call
+      (identifier)
+      (argument_list
+        (identifier))))
+  (comment)
+  (expression_statement
+    (call
+      (attribute
+        (identifier)
+        (identifier))
+      (argument_list)))
+  (comment)
+  (expression_statement
+    (partial
+      (identifier)
+      (partial_argument_list
+        (identifier))))
+  (comment)
+  (expression_statement
+    (subscript
+      (call
+        (identifier)
+        (argument_list))
+      (integer)))
+  (comment)
+  (expression_statement
+    (call
+      (attribute
+        (subscript
+          (attribute
+            (call
+              (identifier)
+              (argument_list))
+            (identifier))
+          (identifier))
+        (identifier))
+      (argument_list))))

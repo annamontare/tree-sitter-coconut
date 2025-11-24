@@ -42,6 +42,19 @@ Below are Coconut features and their implementation status in this grammar.
     - [ ] definitions
     - [ ] tests
     - [ ] highlights
+  - [ ] custom operators
+  - [ ] none-coalescing operator
+    - [x] implementation
+    - [x] tests
+    - [ ] highlights
+  - [ ] coalescing assignment operator
+    - [x] implementation
+    - [x] tests
+    - [ ] highlights
+  - [ ] other None-aware operators
+    - [x] implementation
+    - [x] tests
+    - [ ] highlights
 - Keywords
   - [x] where statements
 - Expressions

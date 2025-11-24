@@ -28,18 +28,19 @@ const PREC = {
   compare: 13,
   pipe: 14,
   composition_pipe: 15,
-  infix_call: 16,
-  composition: 17,
-  iterator_chain: 18,
-  bitwise_or: 19,
-  bitwise_and: 20,
-  xor: 21,
-  shift: 22,
-  plus: 23,
-  times: 24,
-  unary: 25,
-  power: 26,
-  call: 27,
+  none_coalesce: 16,
+  infix_call: 17,
+  composition: 18,
+  iterator_chain: 19,
+  bitwise_or: 20,
+  bitwise_and: 21,
+  xor: 22,
+  shift: 23,
+  plus: 24,
+  times: 25,
+  unary: 26,
+  power: 27,
+  call: 28,
 };
 
 const SEMICOLON = ';';
@@ -880,6 +881,7 @@ module.exports = grammar({
         [prec.left, '^', PREC.xor],
         [prec.left, '<<', PREC.shift],
         [prec.left, '>>', PREC.shift],
+        [prec.left, '??', PREC.none_coalesce],
       ];
 
       // @ts-ignore
@@ -989,6 +991,7 @@ module.exports = grammar({
         '..?**>=',
         '<**?..=',
         '::=',
+        '??=',
       )),
       field('right', $._right_hand_side),
     ),
@@ -1034,13 +1037,14 @@ module.exports = grammar({
 
     attribute: $ => prec(PREC.call, seq(
       field('object', $.primary_expression),
-      '.',
+      // TOOD should these be seperate node types?
+      field('operator', choice('.', '?.')),
       field('attribute', $.identifier),
     )),
 
     subscript: $ => prec(PREC.call, seq(
       field('value', $.primary_expression),
-      '[',
+      field('operator', choice('[', '?[')),
       commaSep1(field('subscript', choice($.expression, $.slice))),
       optional(','),
       ']',
@@ -1074,6 +1078,7 @@ module.exports = grammar({
 
     call: $ => prec(PREC.call, seq(
       field('function', $.primary_expression),
+      optional('?'),
       field('arguments', choice(
         $.generator_expression,
         $.argument_list,
@@ -1178,7 +1183,7 @@ module.exports = grammar({
 
     partial: $ => prec(PREC.call, seq(
       field('function', $.primary_expression),
-      "$",
+      field('operator', choice('$', '?$')),
       field('arguments', choice(
         $.generator_expression,
         $.partial_argument_list,
