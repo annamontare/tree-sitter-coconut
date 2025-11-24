@@ -2551,3 +2551,84 @@ could_be_none()?.attr[index].method()
           (identifier))
         (identifier))
       (argument_list))))
+
+===
+Protocol intersection (docs)
+===
+
+from typing import Protocol
+
+class X(Protocol):
+    x: str
+
+class Y(Protocol):
+    y: str
+
+def foo(xy: X &: Y) -> None:
+    print(xy.x, xy.y)
+
+type CanAddAndSub = (+) &: (-)
+
+---
+
+(module
+  (import_from_statement
+    (dotted_name
+      (identifier))
+    (dotted_name
+      (identifier)))
+  (class_definition
+    (identifier)
+    (argument_list
+      (identifier))
+    (block
+      (expression_statement
+        (assignment
+          (identifier)
+          (type
+            (identifier))))))
+  (class_definition
+    (identifier)
+    (argument_list
+      (identifier))
+    (block
+      (expression_statement
+        (assignment
+          (identifier)
+          (type
+            (identifier))))))
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (protocol_intersection_type
+            (type
+              (identifier))
+            (type
+              (identifier))))))
+    (type
+      (none))
+    (block
+      (expression_statement
+        (call
+          (identifier)
+          (argument_list
+            (attribute
+              (identifier)
+              (identifier))
+            (attribute
+              (identifier)
+              (identifier)))))))
+  (type_alias_statement
+    (type
+      (identifier))
+    (type
+      (protocol_intersection_type
+        (type
+          (something
+            (operator)))
+        (type
+          (something
+            (operator)))))))

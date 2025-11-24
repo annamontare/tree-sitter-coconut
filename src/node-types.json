@@ -3298,6 +3298,21 @@
     }
   },
   {
+    "type": "protocol_intersection_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "raise_statement",
     "named": true,
     "fields": {
@@ -3663,6 +3678,10 @@
         },
         {
           "type": "member_type",
+          "named": true
+        },
+        {
+          "type": "protocol_intersection_type",
           "named": true
         },
         {
@@ -4061,6 +4080,10 @@
   },
   {
     "type": "&",
+    "named": false
+  },
+  {
+    "type": "&:",
     "named": false
   },
   {

@@ -5968,6 +5968,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "protocol_intersection_type"
+        },
+        {
+          "type": "SYMBOL",
           "name": "constrained_type"
         },
         {
@@ -6032,6 +6036,27 @@
           {
             "type": "STRING",
             "value": "|"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "type"
+          }
+        ]
+      }
+    },
+    "protocol_intersection_type": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "type"
+          },
+          {
+            "type": "STRING",
+            "value": "&:"
           },
           {
             "type": "SYMBOL",
