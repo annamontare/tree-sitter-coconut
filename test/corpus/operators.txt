@@ -1341,17 +1341,19 @@ f |> g ..> h == f |> (g ..> h)
             (identifier)
             (identifier))))))
   (expression_statement
-    (comparision_operator
-      (infix_application
+    (comparison_operator
+      (infix_call
         (composition
           (identifier)
           (identifier))
+        (identifier)
         (identifier))
-      (infix_application
+      (infix_call
         (parenthesized_expression
           (composition
             (identifier)
             (identifier)))
+        (identifier)
         (identifier))))
   (expression_statement
     (comparison_operator
@@ -1995,28 +1997,217 @@ def N(n=0) = (n,) :: N(n+1)  # no infinite loop because :: is lazy
       (identifier))))
 
 ===
-infix functions
-:skip
-# waiting on implementation
+Infix functions
 ===
 
+x `f` y  ==  f(x, y)
+`f` x    ==  f(x)
+x `f`    ==  f(x)
+`f`      ==  f()
+
 ---
+
+(module
+  (expression_statement
+    (comparison_operator
+      (infix_call
+        left_argument: (identifier)
+        function: (identifier)
+        right_argument: (identifier))
+      (call
+        function: (identifier)
+        arguments: (argument_list
+          (identifier)
+          (identifier)))))
+  (expression_statement
+    (comparison_operator
+      (infix_call
+        function: (identifier)
+        right_argument: (identifier))
+      (call
+        function: (identifier)
+        arguments: (argument_list
+          (identifier)))))
+  (expression_statement
+    (comparison_operator
+      (infix_call
+        left_argument: (identifier)
+        function: (identifier))
+      (call
+        function: (identifier)
+        arguments: (argument_list
+          (identifier)))))
+  (expression_statement
+    (comparison_operator
+      (infix_call
+        function: (identifier))
+      (call
+        function: (identifier)
+        arguments: (argument_list)))))
+
+===
+Infix calling has a precedence in-between chaining and None-coalescing.
+===
+
+a `f` b :: c == a `f` (b :: c)
+a ?? b `f` c == a ?? (b `f` c)
+
+---
+
+(module
+  (expression_statement
+    (comparison_operator
+      (infix_call
+        (identifier)
+        (identifier)
+        (iterator_chain
+          (identifier)
+          (identifier)))
+      (infix_call
+        (identifier)
+        (parenthesized_expression
+          (iterator_chain
+            (identifier)
+            (identifier))))))
+  (expression_statement
+    (comparison_operator
+      (none_coalesce
+        (identifier)
+        (infix_call
+          (identifier)
+          (identifier)))
+      (none_coalesce
+        (identifier)
+        (parenthesized_expression
+          (infix_call
+            (identifier)
+            (identifier)))))))
+
+===
+Infix calling is left-associative.
+===
+
+a `f` b `g` c
+
+---
+
+(module
+  (expression_statement
+    (infix_call
+      left_argument: (infix_call
+        left_argument: (identifier)
+        function: (identifier)
+        right_argument: (identifier))
+      function: (identifier)
+      right_argument: (identifier))))
+
+===
+infix notation supports a lambda as the last argument, despite lambdas having a lower precedence. Thus, a `func` b => c is equivalent to func(a, b => c).
+===
+
+a `func` b => c == func(a, b => c)
+
+---
+
+(module
+  (expression_statement
+    (comparison_operator
+      (infix_call
+        (identifier)
+        (lambda
+          (lambda_parameters
+            (identifier))
+          (identifier)))
+      (call
+        (identifier)
+        (argument_list
+          (identifier)
+          (lambda
+            (lambda_parameters
+              identifer))
+            (identifier))))))
 
 ===
 infix function definition
-:skip
-# waiting on implementation
 ===
+
+def a `f` b:
+    return a + b
 
 ---
 
+(module
+  (infix_function_definition
+    (identifier)
+    left: (identifier)
+    right: (identifier)
+    (return_statement
+      (binary_operator
+        (identifier)
+        (identifier)))))
+
+===
+If an <arg> includes a default, the <arg> must be surrounded in parentheses.
+===
+
+def (a=0) `f` (b=0):
+    return a + b
+
+---
+
+(module
+  (infix_function_definition
+    (identifier)
+    left: (default_argument
+      (identifier)
+      (integer))
+    right: (default_argument
+      (identifier)
+      (integer))
+    (return_statement
+      (binary_operator
+        (identifier)
+        (identifier)))))
+
+===
+Infix function definition can be combined with assignment and/or pattern-matching function definition.
+===
+
+def a `f` b = a + b
+
+def _ + [x] `add_to_last` (y=1):
+    return x + y
+
+def _ + [x] `add_to_last` (y=1) = x + y
+
+---
+
+(module
+  (infix_assignment_function_definition)
+  (infix_pattern_function_definition)
+  (infix_pattern_assignment_function_definition))
+
 ===
 infix functions (docs)
-:skip
-# waiting on implementation
 ===
 
 def a `mod` b = a % b
 (x `mod` 2) `print`
 
 ---
+
+(module
+  (infix_assignment_definition
+    (identifier)
+    left: (identifier)
+    right: (identifier)
+    (binary_operator
+      (identifier)
+      (identifier)))
+  (infix_call
+    left: (parenthesized_expression
+      (infix_call
+        (identifier)
+        (integer)))
+    right: (identifier)))
+

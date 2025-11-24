@@ -334,9 +334,6 @@ def f(x: int) -> int = k -> k + 1
 
 ===
 assignment function definition combined with infix function definition
-
-:skip
-# TODO waiting on implementation of infix definition
 ===
 
 def a `plus` b = a + b

@@ -37,6 +37,11 @@ Below are Coconut features and their implementation status in this grammar.
     - [ ] implementation
     - [x] tests
     - [ ] highlights
+  - [ ] infix functions
+    - [x] calls
+    - [ ] definitions
+    - [ ] tests
+    - [ ] highlights
 - Keywords
   - [x] where statements
 - Expressions

@@ -52,9 +52,6 @@ static inline int32_t end_character(Delimiter *delimiter) {
     if (delimiter->flags & DoubleQuote) {
         return '"';
     }
-    if (delimiter->flags & BackQuote) {
-        return '`';
-    }
     return 0;
 }
 
@@ -73,9 +70,6 @@ static inline void set_end_character(Delimiter *delimiter, int32_t character) {
             break;
         case '"':
             delimiter->flags |= DoubleQuote;
-            break;
-        case '`':
-            delimiter->flags |= BackQuote;
             break;
         default:
             assert(false);
@@ -275,7 +269,7 @@ bool tree_sitter_coconut_external_scanner_scan(void *payload, TSLexer *lexer, co
             }
 
             bool next_tok_is_string_start =
-                lexer->lookahead == '\"' || lexer->lookahead == '\'' || lexer->lookahead == '`';
+                lexer->lookahead == '\"' || lexer->lookahead == '\'';
 
             if ((valid_symbols[DEDENT] ||
                  (!valid_symbols[NEWLINE] && !(valid_symbols[STRING_START] && next_tok_is_string_start) &&
@@ -316,11 +310,7 @@ bool tree_sitter_coconut_external_scanner_scan(void *payload, TSLexer *lexer, co
             advance(lexer);
         }
 
-        if (lexer->lookahead == '`') {
-            set_end_character(&delimiter, '`');
-            advance(lexer);
-            lexer->mark_end(lexer);
-        } else if (lexer->lookahead == '\'') {
+        if (lexer->lookahead == '\'') {
             set_end_character(&delimiter, '\'');
             advance(lexer);
             lexer->mark_end(lexer);

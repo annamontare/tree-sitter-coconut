@@ -28,17 +28,18 @@ const PREC = {
   compare: 13,
   pipe: 14,
   composition_pipe: 15,
-  composition: 16,
-  iterator_chain: 17,
-  bitwise_or: 18,
-  bitwise_and: 19,
-  xor: 20,
-  shift: 21,
-  plus: 22,
-  times: 23,
-  unary: 24,
-  power: 25,
-  call: 26,
+  infix_call: 16,
+  composition: 17,
+  iterator_chain: 18,
+  bitwise_or: 19,
+  bitwise_and: 20,
+  xor: 21,
+  shift: 22,
+  plus: 23,
+  times: 24,
+  unary: 25,
+  power: 26,
+  call: 27,
 };
 
 const SEMICOLON = ';';
@@ -828,6 +829,7 @@ module.exports = grammar({
       $.iterator_slice,
       $.iterator_chain,
       $.call,
+      $.infix_call,
       $.partial,
       $.pipe,
       $.composition,
@@ -1076,6 +1078,14 @@ module.exports = grammar({
         $.generator_expression,
         $.argument_list,
       )),
+    )),
+
+    infix_call: $ => prec.left(PREC.infix_call, seq(
+      optional(field('left_argument', $.primary_expression)),
+      '`',
+      field('function', $.identifier),
+      '`',
+      optional(field('right_argument', $.primary_expression)),
     )),
 
     pipe: $ => choice(
