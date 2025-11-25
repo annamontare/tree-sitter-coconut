@@ -59,6 +59,10 @@ Below are Coconut features and their implementation status in this grammar.
     - [x] implementation
     - [x] tests
     - [ ] highlights
+  - [ ] unicode alternatives
+    - [x] implementation
+    - [x] tests
+    - [ ] highlights
 - Keywords
   - [x] where statements
 - Expressions

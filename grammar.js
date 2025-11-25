@@ -871,16 +871,24 @@ module.exports = grammar({
         [prec.left, '+', PREC.plus],
         [prec.left, '-', PREC.plus],
         [prec.left, '*', PREC.times],
+        [prec.left, '×', PREC.times],
         [prec.left, '@', PREC.times],
         [prec.left, '/', PREC.times],
+        [prec.left, '÷', PREC.times],
         [prec.left, '%', PREC.times],
         [prec.left, '//', PREC.times],
+        [prec.left, '÷/', PREC.times],
         [prec.right, '**', PREC.power],
+        [prec.right, '↑', PREC.power],
         [prec.left, '|', PREC.bitwise_or],
+        [prec.left, '∪', PREC.bitwise_or],
         [prec.left, '&', PREC.bitwise_and],
+        [prec.left, '∩', PREC.bitwise_and],
         [prec.left, '^', PREC.xor],
         [prec.left, '<<', PREC.shift],
+        [prec.left, '«', PREC.shift],
         [prec.left, '>>', PREC.shift],
+        [prec.left, '»', PREC.shift],
         [prec.left, '??', PREC.none_coalesce],
       ];
 
@@ -894,7 +902,7 @@ module.exports = grammar({
     },
 
     unary_operator: $ => prec(PREC.unary, seq(
-      field('operator', choice('+', '-', '~')),
+      field('operator', choice('+', '-', '~', '⁻')),
       field('argument', $.primary_expression),
     )),
 
@@ -908,11 +916,19 @@ module.exports = grammar({
         field('operators',
           choice(
             '<',
+            '⊊',
             '<=',
+            '≤',
+            '⊆',
             '==',
             '!=',
+            '≠',
+            '¬=',
             '>=',
+            '≥',
+            '⊇',
             '>',
+            '⊋',
             '<>',
             'in',
             alias($._not_in, 'not in'),
@@ -932,14 +948,14 @@ module.exports = grammar({
 
     lambda: $ => prec(PREC.lambda, choice(
       seq(
-        'lambda',
+        choice('lambda', 'λ'),
         field('parameters', optional($.lambda_parameters)),
         ':',
         field('body', $.expression),
       ),
       prec.right(seq(
         optional(field('parameters', alias(choice($.parameters, $.lambda_single_parameter), $.lambda_parameters))),
-        choice('=>', '->'),
+        choice('=>', '->', '⇒', '→'),
         field('body', $.expression),
       )),
     )),
@@ -1074,7 +1090,7 @@ module.exports = grammar({
       )),
     )),
 
-    ellipsis: _ => '...',
+    ellipsis: _ => choice('...', '…'),
 
     call: $ => prec(PREC.call, seq(
       field('function', $.primary_expression),
@@ -1106,11 +1122,17 @@ module.exports = grammar({
 
     _forward_pipe_operator: $ => choice(
       '|>',
+      '↦',
       '|*>',
+      '*↦',
       '|**>',
+      '**↦',
       '|?>',
+      '?↦',
       '|?*>',
+      '?*↦',
       '|?**>',
+      '?**↦',
     ),
 
     _pipe_backward: $=> prec.left(PREC.pipe, seq(
@@ -1121,11 +1143,17 @@ module.exports = grammar({
 
     _backward_pipe_operator: $ => choice(
       '<|',
+      '↤',
       '<*|',
+      '↤*',
       '<**|',
+      '↤**',
       '<?|',
+      '↤?',
       '<*?|',
+      '↤*?',
       '<**?|',
+      '↤**?',
     ),
 
     _pipe_to_expression: $ => choice(
@@ -1142,7 +1170,7 @@ module.exports = grammar({
 
     composition: $ => prec.right(PREC.composition, seq(
       field('left', $.primary_expression),
-      '..',
+      choice('..', '∘'),
       field('right', $.primary_expression)
     )),
 
@@ -1165,20 +1193,32 @@ module.exports = grammar({
 
     _forward_composition_pipe_operator: $ => choice(
       '..>',
+      '∘>',
       '..*>',
+      '∘*>',
       '..**>',
+      '∘**>',
       '..?>',
+      '∘?>',
       '..?*>',
+      '∘?*>',
       '..?**>',
+      '∘?**>',
     ),
 
     _backward_composition_pipe_operator: $ => choice(
       '<..',
+      '<∘',
       '<*..',
+      '<*∘',
       '<**..',
+      '<**∘',
       '<?..',
+      '<?∘',
       '<*?..',
+      '<*?∘',
       '<**?..',
+      '<**?∘',
     ),
 
     partial: $ => prec(PREC.call, seq(
@@ -1419,7 +1459,7 @@ module.exports = grammar({
 
     float: _ => {
       const digits = repeat1(/[0-9]+_?/);
-      const exponent = seq(/[eE][\+-]?/, digits);
+      const exponent = seq(/[eE⏨][\+-]?/, digits);
 
       return token(seq(
         choice(

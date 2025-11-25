@@ -2632,3 +2632,605 @@ type CanAddAndSub = (+) &: (-)
         (type
           (something
             (operator)))))))
+
+===
+Unicode alternatives
+===
+
+# ⇒ (\u21d2)                 => "=>"
+(x ⇒ x + 2) == (x => x + 2)
+
+# → (\u2192)                  => "->"
+(x → x + 2) == (x -> x + 2)
+
+# × (\xd7)                    => "*" (only multiplication)
+a × b == a * b
+
+# ↑ (\u2191)                  => "**" (only exponentiation)
+a ↑ b == a ** b
+
+# ÷ (\xf7)                    => "/" (only division)
+a ÷ b == a / b
+
+# ÷/ (\xf7/)                  => "//"
+a ÷/ b == a // b
+
+# ⁻ (\u207b)                  => "-" (only negation)
+⁻a == -a
+
+# ≠ (\u2260) or ¬= (\xac=)    => "!="
+(a ≠ b) == (a == b)
+
+# ≤ (\u2264) or ⊆ (\u2286)    => "<="
+(a ≤ b) == (a ⊆ b) == (a <= b)
+
+# ≥ (\u2265) or ⊇ (\u2287)    => ">="
+(a ≥ b) == (a ⊇ b) == (a >= b)
+
+# ⊊ (\u228a)                  => "<"
+(a ⊊ b) == (a < b)
+
+# ⊋ (\u228b)                  => ">"
+(a ⊋ b) == (a > b)
+
+# ∩ (\u2229)                  => "&"
+(a ∩ b) == (a & b)
+
+# ∪ (\u222a)                  => "|"
+(a ∪ b) == (a | b)
+
+# « (\xab)                    => "<<"
+(a « b) == (a << b)
+
+# » (\xbb)                    => ">>"
+(a » b) == (a >> b)
+
+# … (\u2026)                  => "..."
+… is Ellipsis
+
+# λ (\u03bb)                  => "lambda"
+(λ x: x + 1) == (lambda x: x + 1)
+
+# ↦ (\u21a6)                 => "|>"
+(a ↦ f) == (a |> f)
+
+# ↤ (\u21a4)                 => "<|"
+(f ↤ a) == (f <| a)
+
+# *↦ (*\u21a6)               => "|*>"
+(a *↦ f) == (a |*> f)
+
+# ↤* (\u21a4*)               => "<*|"
+(f ↤* a) == (f <*| a)
+
+# **↦ (**\u21a6)             => "|**>"
+(a **↦ f) == (a |**> f)
+
+# ↤** (\u21a4**)             => "<**|"
+(f ↤** a) == (f <**| a)
+
+# ?↦ (?\u21a6)               => "|?>"
+(a ?↦ f) == (a |?> f)
+
+# ↤? (?\u21a4)               => "<?|"
+(f ↤? a) == (f <?| a)
+
+# ?*↦ (?*\u21a6)             => "|?*>"
+(a ?*↦ f) == (a |?*> f)
+
+# ↤*? (\u21a4*?)             => "<*?|"
+(f ↤*? a) == (f <*?| a)
+
+# ?**↦ (?**\u21a6)           => "|?**>"
+(a ?**↦ f) == (a |?**> f)
+
+# ↤**? (\u21a4**?)           => "<**?|"
+(f ↤**? a) == (f <**?| a)
+
+# ∘ (\u2218)                  => ".."
+f ∘ g == f .. g
+
+# ∘> (\u2218>)                => "..>"
+f ∘> g == f ..> g
+
+# <∘ (<\u2218)                => "<.."
+f <∘ g == f <.. g
+
+# ∘*> (\u2218*>)              => "..*>"
+f ∘*> g == f ..*> g
+
+# <*∘ (<*\u2218)              => "<*.."
+f <*∘ g == f <*.. g
+
+# ∘**> (\u2218**>)            => "..**>"
+f ∘**> g == f ..**> g
+
+# <**∘ (<**\u2218)            => "<**.."
+f <**∘ g == f <**.. g
+
+# ∘?> (\u2218?>)              => "..?>"
+f ∘?> g == f ..?> g
+
+# <?∘ (<?\u2218)              => "<?.."
+f <?∘ g == f <?.. g
+
+# ∘?*> (\u2218?*>)            => "..?*>"
+f ∘?*> g == f ..?*> g
+
+# <*?∘ (<*?\u2218)            => "<*?.."
+f <*?∘ g == f <*?.. g
+
+# ∘?**> (\u2218?**>)          => "..?**>"
+f ∘?**> g == f ..?**> g
+
+# <**?∘ (<**?\u2218)          => "<**?.."
+f <**?∘ g == f <**?.. g
+
+# ⏨ (\u23e8)                  => "e" (in scientific notation)
+3.14⏨6 == 3.14e6
+
+---
+
+(module
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (lambda
+          (lambda_parameters
+            (identifier))
+          (binary_operator
+            (identifier)
+            (integer))))
+      (parenthesized_expression
+        (lambda
+          (lambda_parameters
+            (identifier))
+          (binary_operator
+            (identifier)
+            (integer))))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (lambda
+          (lambda_parameters
+            (identifier))
+          (binary_operator
+            (identifier)
+            (integer))))
+      (parenthesized_expression
+        (lambda
+          (lambda_parameters
+            (identifier))
+          (binary_operator
+            (identifier)
+            (integer))))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (binary_operator
+        (identifier)
+        (identifier))
+      (binary_operator
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (binary_operator
+        (identifier)
+        (identifier))
+      (binary_operator
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (binary_operator
+        (identifier)
+        (identifier))
+      (binary_operator
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (binary_operator
+        (identifier)
+        (identifier))
+      (binary_operator
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (unary_operator
+        (identifier))
+      (unary_operator
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (comparison_operator
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (binary_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (binary_operator
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (binary_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (binary_operator
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (binary_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (binary_operator
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (binary_operator
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (binary_operator
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (ellipsis)
+      (identifier)))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (lambda
+          (lambda_parameters
+            (identifier))
+          (binary_operator
+            (identifier)
+            (integer))))
+      (parenthesized_expression
+        (lambda
+          (lambda_parameters
+            (identifier))
+          (binary_operator
+            (identifier)
+            (integer))))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (pipe
+          (identifier)
+          (identifier)))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition
+        (identifier)
+        (identifier))
+      (composition
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (composition_pipe
+        (identifier)
+        (identifier))
+      (composition_pipe
+        (identifier)
+        (identifier))))
+  (comment)
+  (expression_statement
+    (comparison_operator
+      (float)
+      (float))))
+
+
