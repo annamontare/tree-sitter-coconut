@@ -2114,6 +2114,7 @@ a `func` b => c == func(a, b => c)
     (comparison_operator
       (infix_call
         (identifier)
+        (identifier)
         (lambda
           (lambda_parameters
             (identifier))
