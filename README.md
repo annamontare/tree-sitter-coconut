@@ -77,6 +77,8 @@ Below are Coconut features and their implementation status in this grammar.
 
 - [ ] highlights
 - [ ] tests for highlights
+- [ ] textobject queries
+- [ ] indent queries
 
 
 ## Development
