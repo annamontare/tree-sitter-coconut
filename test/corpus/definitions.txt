@@ -26,14 +26,14 @@ async def g(x) =
 
 (module
   (comment)
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (identifier))
     (binary_operator
       (identifier)
       (integer)))
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (identifier))
@@ -41,7 +41,7 @@ async def g(x) =
       (await
         (identifier))
       (integer)))
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (identifier))
@@ -59,7 +59,7 @@ async def g(x) =
         (binary_operator
           (identifier)
           (integer)))))
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (identifier)
@@ -78,7 +78,7 @@ async def g(x) =
       (tuple
         (identifier)
         (identifier))))
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (identifier))
@@ -102,7 +102,7 @@ def binexp(x) = 2**x
 ---
 
 (module
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (identifier))
@@ -161,7 +161,7 @@ def f[T](x: T) -> tuple[T, bool] =
             (identifier)
             (argument_list
               (identifier)))))))
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (type_parameter
       (type
@@ -185,7 +185,7 @@ def f[T](x: T) -> tuple[T, bool] =
         (identifier)
         (argument_list
           (identifier)))))
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (type_parameter
       (type
@@ -258,7 +258,7 @@ def f(x) = expensive(x) + 12
   (decorated_definition
     (decorator
       (identifier))
-    (assignment_function_definition
+    (function_definition
       (identifier)
       (parameters
         (identifier))
@@ -281,7 +281,7 @@ def f(x: int) -> int = k -> k + 1
 ---
 
 (module
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (identifier))
@@ -291,7 +291,7 @@ def f(x: int) -> int = k -> k + 1
       (binary_operator
         (identifier)
         (integer))))
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (identifier))
@@ -301,7 +301,7 @@ def f(x: int) -> int = k -> k + 1
       (binary_operator
         (identifier)
         (integer))))
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (typed_parameter
@@ -316,7 +316,7 @@ def f(x: int) -> int = k -> k + 1
       (binary_operator
         (identifier)
         (integer))))
-  (assignment_function_definition
+  (function_definition
     (identifier)
     (parameters
       (typed_parameter
@@ -347,29 +347,26 @@ def x `f` y =
 ---
 
 (module
-  (assignment_function_definition
+  (function_definition
     (identifier)
-    (parameters
-      (identifier)
-      (identifier))
+    (identifier)
+    (identifier)
     (binary_operator
       (identifier)
       (identifier)))
-  (assignment_function_definition
+  (function_definition
     (identifier)
-    (parameters
+    (identifier)
+    (default_parameter
       (identifier)
-      (default_parameter
-        (identifier)
-        (integer)))
+      (integer))
     (binary_operator
       (identifier)
       (identifier)))
-  (assignment_function_definition
+  (function_definition
     (identifier)
-    (parameters
-      (identifier)
-      (identifier))
+    (identifier)
+    (identifier)
     (block
       (expression_statement
         (assignment

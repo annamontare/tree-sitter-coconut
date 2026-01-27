@@ -280,7 +280,6 @@ module.exports = grammar({
       $.with_statement,
       $.where_statement,
       $.function_definition,
-      $.assignment_function_definition,
       $.class_definition,
       $.decorated_definition,
       $.match_statement,
@@ -431,39 +430,42 @@ module.exports = grammar({
     function_definition: $ => seq(
       optional('async'),
       'def',
-      field('name', $.identifier),
-      field('type_parameters', optional($.type_parameter)),
-      field('parameters', $.parameters),
+      choice(
+        seq(
+          field('name', $.identifier),
+          field('type_parameters', optional($.type_parameter)),
+          field('parameters', $.parameters),
+        ),
+        seq(
+          field('left', $._infix_parameter),
+          '`',
+          field('name', $.identifier),
+          '`',
+          field('right', $._infix_parameter),
+        ),
+      ),
       optional(
         seq(
           '->',
           field('return_type', $.type),
         ),
       ),
-      ':',
-      field('body', $._suite),
+      choice(
+        seq(
+          ':',
+          field('body', $._suite),
+        ),
+        seq(
+          '=',
+          field('body', $._assignment_function_body),
+          // field('body', choice(
+          //   field('return', $.expression), // TODO this is the problem
+          //   // alias($._assignment_function_body, $.block),
+          // )),
+        ),
+      ),
     ),
 
-    assignment_function_definition: $ => seq(
-      optional('async'),
-      'def',
-      field('name', $.identifier),
-      field('type_parameters', optional($.type_parameter)),
-      field('parameters', $.parameters),
-      optional(
-        seq(
-          '->',
-          field('return_type', $.type),
-        ),
-      ),
-      '=',
-      field('body', $._assignment_function_body),
-      // field('body', choice(
-      //   field('return', $.expression), // TODO this is the problem
-      //   // alias($._assignment_function_body, $.block),
-      // )),
-    ),
-    
     _assignment_function_body: $ => choice(
       seq(
         field('return', $.expression),
@@ -592,7 +594,6 @@ module.exports = grammar({
       field('definition', choice(
         $.class_definition,
         $.function_definition,
-        $.assignment_function_definition,
       )),
     ),
 
@@ -737,6 +738,16 @@ module.exports = grammar({
       $.keyword_separator,
       $.positional_separator,
       $.dictionary_splat_pattern,
+    ),
+
+    _infix_parameter: $ => choice(
+      $.identifier,
+      seq(
+        '(',
+        $.default_parameter,
+        ')',
+      ),
+      // TODO can infix parameters have any of the other types above?
     ),
 
     pattern: $ => choice(
