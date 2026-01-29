@@ -39,7 +39,7 @@ Below are Coconut features and their implementation status in this grammar.
     - [ ] highlights
   - [ ] infix functions
     - [x] calls
-    - [ ] definitions
+    - [x] definitions
     - [ ] tests
     - [ ] highlights
   - [ ] custom operators
@@ -70,6 +70,11 @@ Below are Coconut features and their implementation status in this grammar.
   - [x] assignment functions
     - [x] basic implementation
     - [ ] finish tests
+    - [ ] highlights
+  - [ ] pattern-matching functions
+    - [ ] implementation
+    - [ ] tests
+    - [ ] highlights
 - Statements
 - Built-Ins
 
