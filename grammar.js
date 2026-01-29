@@ -428,7 +428,14 @@ module.exports = grammar({
     ),
 
     function_definition: $ => seq(
-      optional('async'),
+      optional(
+        choice(
+          'async',
+          'match',
+          seq('async', 'match'),
+          seq('match', 'async'),
+        )
+      ),
       'def',
       choice(
         seq(
