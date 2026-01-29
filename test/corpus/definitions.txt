@@ -381,19 +381,115 @@ def x `f` y =
 
 ===
 assignment function definition combined with pattern-matching function definition
-
-:skip
-# TODO waiting on implementation of pattern-matching definition
 ===
+
+match def f(["increment", x]) = x + 1
 
 ---
 
 
 ===
 assignment function definition with infix and pattern-matching definition
+===
 
-:skip
-# TODO waiting on both
+match def _ + [x] `addtails` _ + [y] = x + y
+
+---
+
+===
+pattern-matching functions
+===
+
+match def f(_ + [x]):
+    return x + 2
+
+def g(Circle(radius=r)):
+    return 2 * math.pi * (r ** 2)
+
+---
+
+===
+conditional check in pattern-matching functions
+===
+
+match def f(x if x > 10):
+    return x - 10
+
+---
+
+===
+defaults in pattern-matching functions
+===
+
+match def f(_ + [x], _ + [y] = [1,2,3]):
+    return x + y
+
+---
+
+===
+return types in pattern-matching functions
+===
+
+match def f(Rect(x, y)) -> bool:
+    return x > y
+
+---
+
+===
+pattern variable names in pattern-matching functions
+===
+
+def f(int(x)):
+    return x * 2
+
+def g([a, b] as x):
+    return sorted(x)
+
+---
+
+===
+pattern-matching functions combined with async functions
+===
+
+async match def f(_ + [x]):
+    await asyncio.sleep(x)
+
+---
+
+===
+pattern-matching functions combined with copyclosure functions
 ===
 
 ---
+
+===
+pattern-matching functions combined with yield functions
+===
+
+---
+
+===
+The various keywords in front of the `def` can be put in any order.
+===
+
+async match
+
+match async
+
+---
+
+===
+pattern matching functions (docs)
+===
+
+def last_two(_ + [a, b]):
+    return a, b
+def xydict_to_xytuple({"x": x `isinstance` int, "y": y `isinstance` int}):
+    return x, y
+
+range(5) |> last_two |> print
+{"x":1, "y":2} |> xydict_to_xytuple |> print
+
+---
+
+
