@@ -546,6 +546,7 @@ module.exports = grammar({
       ':',
       field('body', $._suite),
     ),
+
     type_parameter: $ => seq(
       '[',
       commaSep1($.type),
