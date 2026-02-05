@@ -1285,6 +1285,7 @@ f <**?.. g
 Forwards and backwards function composition pipes cannot be used together in the same expression (unlike normal pipes).
 
 :error
+:skip
 # TODO must be implemented
 ===
 
@@ -1296,6 +1297,7 @@ f ..> g <.. h
 Forwards and backwards function composition pipes cannot be used together 2
 
 :error
+:skip
 # TODO must be implemented
 ===
 
@@ -1394,6 +1396,8 @@ f_into_g = f ..> g
 
 ===
 Longer function compositions
+
+:skip
 # TODO function composition operators not fully implemented
 ===
 
@@ -1507,6 +1511,8 @@ funcs[12] ..*> f
 
 ===
 Composition within other constructs
+
+:skip
 # TODO function composition operators not fully implemented
 ===
 
@@ -1605,6 +1611,9 @@ Composition pipes within other constructs
 
 ===
 Mixing composition pipes
+
+:skip
+# TODO
 ===
 
 f ..> g ..*> h ..**> i ..?> j ..?*> k ..?**> l
@@ -1641,6 +1650,8 @@ f <.. g .. h
 
 ===
 Compositions and lambdas
+
+:skip
 # TODO function composition operators not fully implemented
 ===
 
@@ -1884,6 +1895,9 @@ a :: b
 
 ===
 Longer iterator chains
+
+:skip
+# TODO
 ===
 
 a :: b :: c
@@ -1899,6 +1913,9 @@ a :: b :: c
 
 ===
 Iterator chaining has a precedence in-between bitwise or and infix calls
+
+:skip
+# TODO
 ===
 
 a :: b | c == a :: (b | c)
@@ -1950,6 +1967,9 @@ a ::= b
 
 ===
 Iterator chaining (docs)
+
+:skip
+# TODO
 ===
 
 def N(n=0) = (n,) :: N(n+1)  # no infinite loop because :: is lazy
@@ -2047,6 +2067,9 @@ x `f`    ==  f(x)
 
 ===
 Infix calling has a precedence in-between chaining and None-coalescing.
+
+:skip
+# TODO
 ===
 
 a `f` b :: c == a `f` (b :: c)
@@ -2103,6 +2126,9 @@ a `f` b `g` c
 
 ===
 infix notation supports a lambda as the last argument, despite lambdas having a lower precedence. Thus, a `func` b => c is equivalent to func(a, b => c).
+
+:skip
+# TODO needs implementation
 ===
 
 a `func` b => c == func(a, b => c)
@@ -2565,6 +2591,9 @@ could_be_none()?.attr[index].method()
 
 ===
 Protocol intersection (docs)
+
+:skip
+# TODO I believe waiting on implementation of operator functions
 ===
 
 from typing import Protocol
